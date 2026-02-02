@@ -5,9 +5,13 @@ import TableHead from "./table-head";
 
 type TableProps = {
   filteredExpenseData: ExpenseData[];
+  totalAmount: number;
 };
 
-export default function Table({ filteredExpenseData }: TableProps) {
+export default function Table({
+  filteredExpenseData,
+  totalAmount,
+}: TableProps) {
   return (
     <table className="mt-6 flex flex-col">
       {/* Table head */}
@@ -17,7 +21,7 @@ export default function Table({ filteredExpenseData }: TableProps) {
       <TableBody filteredExpenseData={filteredExpenseData} />
 
       {/* Table foot */}
-      <TableFoot />
+      <TableFoot totalAmount={totalAmount} />
     </table>
   );
 }

@@ -1,15 +1,37 @@
 import { Plus } from "lucide-react";
 import Button from "./button";
 import Filter from "./filter";
+import type { FilterOption } from "./filter";
 import { expenseData as initialExpenseData } from "../data";
 import Table from "./table";
+import { useState } from "react";
 
 export default function ExpenseTracker() {
+  const [expenseData, setExpenseData] = useState(initialExpenseData);
+  const [filteredExpenseData, setFilteredExpenseData] = useState(expenseData);
+
+  const totalAmount = filteredExpenseData.reduce(
+    (acc, curr) => acc + curr.amount,
+    0,
+  );
+
+  function updateFilteredExpenseData(filterOption: FilterOption) {
+    if (filterOption === "all") {
+      setFilteredExpenseData(expenseData);
+    } else {
+      setFilteredExpenseData(
+        expenseData.filter(
+          (expenseData) => expenseData.category === filterOption,
+        ),
+      );
+    }
+  }
+
   return (
     <section className="container mx-auto my-12 px-4">
       {/* Options */}
       <div className="flex items-center justify-between">
-        <Filter />
+        <Filter updateFilteredExpenseData={updateFilteredExpenseData} />
         <Button logo={<Plus />}>Add Data</Button>
       </div>
 
@@ -19,7 +41,10 @@ export default function ExpenseTracker() {
       </em>
 
       {/* Table */}
-      <Table filteredExpenseData={initialExpenseData} />
+      <Table
+        filteredExpenseData={filteredExpenseData}
+        totalAmount={totalAmount}
+      />
     </section>
   );
 }

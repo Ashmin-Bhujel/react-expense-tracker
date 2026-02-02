@@ -3,14 +3,19 @@ import FilterTab from "./filter-tab";
 
 export type FilterOption = "all" | "expense" | "income";
 
+type FilerProps = {
+  updateFilteredExpenseData: (filterOption: FilterOption) => void;
+};
+
 const filterOptions: FilterOption[] = ["all", "expense", "income"];
 
-export default function Filter() {
+export default function Filter({ updateFilteredExpenseData }: FilerProps) {
   const [currentFilterOption, setCurrentFilterOption] =
     useState<FilterOption>("all");
 
   function handleFilterOptionChange(filterOption: FilterOption) {
     setCurrentFilterOption(filterOption);
+    updateFilteredExpenseData(filterOption);
   }
 
   return (
