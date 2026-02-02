@@ -1,6 +1,8 @@
 import { Plus } from "lucide-react";
 import Button from "./button";
 import Filter from "./filter";
+import { expenseData as initialExpenseData } from "../data";
+import Table from "./table";
 
 export default function ExpenseTracker() {
   return (
@@ -10,6 +12,14 @@ export default function ExpenseTracker() {
         <Filter />
         <Button logo={<Plus />}>Add Data</Button>
       </div>
+
+      {/* Note */}
+      <em className="mt-4 inline-block text-sm text-(--muted-foreground)">
+        Note: Double click to remove selected data from list
+      </em>
+
+      {/* Table */}
+      <Table filteredExpenseData={initialExpenseData} />
     </section>
   );
 }

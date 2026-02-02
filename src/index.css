@@ -5,8 +5,8 @@
   --foreground: var(--color-zinc-50);
   --muted-background: var(--color-zinc-900);
   --muted-foreground: var(--color-zinc-400);
-  --danger: var(--color-red-500);
-  --sucess: var(--color-green-500);
+  --danger: var(--color-rose-400);
+  --success: var(--color-emerald-400);
   --font-sans: "DM Sans", sans-serif, system-ui;
 }
 
