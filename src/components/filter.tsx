@@ -17,6 +17,7 @@ export default function Filter() {
     <div className="inline-flex items-center gap-2 border-2 border-(--muted-background) p-1">
       {filterOptions.map((filterOption) => (
         <FilterTab
+          key={filterOption}
           value={filterOption}
           currentFilterOption={currentFilterOption}
           handleFilterOptionChange={handleFilterOptionChange}

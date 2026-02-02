@@ -17,6 +17,7 @@ export default function FilterTab({
 }: FilterTabProps & React.ComponentProps<"button">) {
   return (
     <button
+      {...props}
       className={cn(
         "cursor-pointer px-6 py-2 text-(--muted-foreground) capitalize transition-colors duration-300 hover:text-(--foreground)",
         {
@@ -25,7 +26,6 @@ export default function FilterTab({
         },
         className,
       )}
-      {...props}
       onClick={() => {
         handleFilterOptionChange(value);
       }}
