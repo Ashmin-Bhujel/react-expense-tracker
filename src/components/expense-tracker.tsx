@@ -15,6 +15,14 @@ export default function ExpenseTracker() {
     0,
   );
 
+  function handleExpenseDataRemoval(id: string) {
+    const updatedExpenseData = expenseData.filter(
+      (expenseData) => expenseData.id !== id,
+    );
+    setExpenseData(updatedExpenseData);
+    setFilteredExpenseData(updatedExpenseData);
+  }
+
   function updateFilteredExpenseData(filterOption: FilterOption) {
     if (filterOption === "all") {
       setFilteredExpenseData(expenseData);
@@ -32,7 +40,7 @@ export default function ExpenseTracker() {
       {/* Options */}
       <div className="flex items-center justify-between">
         <Filter updateFilteredExpenseData={updateFilteredExpenseData} />
-        <Button logo={<Plus />}>Add Data</Button>
+        <Button logo={<Plus className="size-4" />}>Add Data</Button>
       </div>
 
       {/* Note */}
@@ -44,6 +52,7 @@ export default function ExpenseTracker() {
       <Table
         filteredExpenseData={filteredExpenseData}
         totalAmount={totalAmount}
+        handleExpenseDataRemoval={handleExpenseDataRemoval}
       />
     </section>
   );
