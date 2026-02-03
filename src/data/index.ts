@@ -1,7 +1,7 @@
 export type ExpenseData = {
   id: ReturnType<Crypto["randomUUID"]>;
   description: string;
-  date: number;
+  date: string;
   category: "expense" | "income";
   amount: number;
 };
@@ -10,28 +10,28 @@ export const expenseData: ExpenseData[] = [
   {
     id: crypto.randomUUID(),
     description: "Buy milk tea",
-    date: Date.now(),
+    date: "2026-02-02",
     category: "expense",
     amount: 25,
   },
   {
     id: crypto.randomUUID(),
     description: "Sell old watch",
-    date: Date.now(),
+    date: "2026-02-02",
     category: "income",
     amount: 500,
   },
   {
     id: crypto.randomUUID(),
     description: "Get pocket money",
-    date: Date.now(),
+    date: "2026-02-02",
     category: "income",
     amount: 1000,
   },
   {
     id: crypto.randomUUID(),
     description: "Pay electricity bill",
-    date: Date.now(),
+    date: "2026-02-02",
     category: "expense",
     amount: 672,
   },

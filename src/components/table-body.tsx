@@ -6,10 +6,6 @@ type TableBodyProps = {
   handleExpenseDataRemoval: (id: string) => void;
 };
 
-function convertUnixDate(unixDate: number) {
-  return new Date(unixDate).toISOString().split("T")[0];
-}
-
 export default function TableBody({
   filteredExpenseData,
   handleExpenseDataRemoval,
@@ -36,7 +32,7 @@ export default function TableBody({
         >
           <td>{idx + 1}</td>
           <td>{expenseData.description}</td>
-          <td>{convertUnixDate(expenseData.date)}</td>
+          <td>{expenseData.date}</td>
           <td
             className={cn("capitalize", {
               "text-(--danger)": expenseData.category === "expense",
