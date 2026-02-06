@@ -1,33 +1,31 @@
-import { cn } from "../utils";
 import type { FilterOption } from "./filter";
+import { cn } from "../utils";
 
 type FilterTabProps = {
   value: FilterOption;
-  className?: string;
-  currentFilterOption: FilterOption;
-  handleFilterOptionChange: (filterOption: FilterOption) => void;
+  filterOption: FilterOption;
+  onFilterOptionChange: (filterOption: FilterOption) => void;
 };
 
 export default function FilterTab({
   value,
   className,
-  currentFilterOption,
-  handleFilterOptionChange,
+  filterOption,
+  onFilterOptionChange,
   ...props
 }: FilterTabProps & React.ComponentProps<"button">) {
   return (
     <button
       {...props}
       className={cn(
-        "cursor-pointer px-6 py-2 text-(--muted-foreground) capitalize transition-colors duration-300 hover:text-(--foreground)",
+        "cursor-pointer px-6 py-2 text-zinc-500 capitalize transition-colors duration-300 hover:text-zinc-50",
         {
-          "bg-(--muted-background) text-(--foreground)":
-            value === currentFilterOption,
+          "bg-zinc-900 text-zinc-50": value === filterOption,
         },
         className,
       )}
       onClick={() => {
-        handleFilterOptionChange(value);
+        onFilterOptionChange(value);
       }}
     >
       {value}

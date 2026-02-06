@@ -1,51 +1,34 @@
-import type { ExpenseData } from "../data";
-import { cn } from "../utils";
+import type { Transaction } from "../data";
+import TableBodyRow from "./table-body-row";
 
 type TableBodyProps = {
-  filteredExpenseData: ExpenseData[];
-  handleExpenseDataRemoval: (id: string) => void;
+  filteredTransactions: Transaction[];
+  onTransactionDataDeletion: (id: Transaction["id"]) => void;
 };
 
 export default function TableBody({
-  filteredExpenseData,
-  handleExpenseDataRemoval,
+  filteredTransactions,
+  onTransactionDataDeletion,
 }: TableBodyProps) {
   return (
     <tbody className="flex flex-col">
-      {filteredExpenseData.length === 0 && (
-        <tr className="border-b border-(--muted-background) transition-colors duration-300 hover:bg-(--muted-background)">
-          <td
-            colSpan={5}
-            className="block px-6 py-2 text-center text-(--muted-foreground)"
-          >
-            No data available
+      {/* If no data available */}
+      {filteredTransactions.length === 0 && (
+        <tr className="border-b border-zinc-900 transition-colors duration-300 hover:bg-zinc-900">
+          <td colSpan={5} className="block px-6 py-2 text-center text-zinc-500">
+            No data available!
           </td>
         </tr>
       )}
 
-      {filteredExpenseData.map((expenseData, idx) => (
-        <tr
-          key={expenseData.id}
-          className="flex cursor-pointer items-center border-b border-(--muted-background) transition-colors duration-300 *:flex-1 *:px-6 *:py-2 *:text-left *:last-of-type:text-right hover:bg-(--muted-background)"
-          title="Double click to remove selected data from list"
-          onDoubleClick={() => handleExpenseDataRemoval(expenseData.id)}
-        >
-          <td>{idx + 1}</td>
-          <td>{expenseData.description}</td>
-          <td>{expenseData.date}</td>
-          <td
-            className={cn("capitalize", {
-              "text-(--danger)": expenseData.category === "expense",
-              "text-(--success)": expenseData.category === "income",
-            })}
-          >
-            {expenseData.category}
-          </td>
-          <td>
-            <span>Rs.</span>
-            <span>{expenseData.amount.toFixed(2)}</span>
-          </td>
-        </tr>
+      {/* Table rows */}
+      {filteredTransactions.map((transaction, index) => (
+        <TableBodyRow
+          key={transaction.id}
+          index={index}
+          transaction={transaction}
+          onTransactionDataDeletion={onTransactionDataDeletion}
+        />
       ))}
     </tbody>
   );

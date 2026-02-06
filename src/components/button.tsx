@@ -1,15 +1,12 @@
-import type { ReactNode } from "react";
 import { cn } from "../utils";
 
 type ButtonProps = {
-  logo?: ReactNode;
-  children?: ReactNode;
-  className?: string;
-  variant?: "default" | "logo";
+  icon?: React.ReactNode;
+  variant?: "default" | "icon";
 };
 
 export default function Button({
-  logo,
+  icon,
   children,
   className,
   variant = "default",
@@ -19,15 +16,15 @@ export default function Button({
     <button
       {...props}
       className={cn(
-        "inline-flex cursor-pointer items-center gap-1 border-2 border-(--muted-background) transition-colors duration-300 hover:bg-(--muted-background)",
+        "inline-flex cursor-pointer items-center gap-1 border-2 border-zinc-900 transition-colors duration-300 hover:bg-zinc-900",
         {
           "px-6 py-2": variant === "default",
-          "p-1": variant === "logo",
+          "p-1": variant === "icon",
         },
         className,
       )}
     >
-      {logo}
+      {icon}
       {children && <span>{children}</span>}
     </button>
   );

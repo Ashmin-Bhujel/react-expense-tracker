@@ -1,12 +1,14 @@
-export type ExpenseData = {
+export type Category = "expense" | "income";
+
+export type Transaction = {
   id: ReturnType<Crypto["randomUUID"]>;
   description: string;
   date: string;
-  category: "expense" | "income";
+  category: Category;
   amount: number;
 };
 
-export const expenseData: ExpenseData[] = [
+const initialTransactions: Transaction[] = [
   {
     id: crypto.randomUUID(),
     description: "Buy milk tea",
@@ -36,3 +38,5 @@ export const expenseData: ExpenseData[] = [
     amount: 672,
   },
 ];
+
+export default initialTransactions;

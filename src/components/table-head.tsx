@@ -1,7 +1,5 @@
-import type { ReactNode } from "react";
-
 type TableHeadDataProps = {
-  children: ReactNode;
+  children: React.ReactNode;
 };
 
 function TableHeadData({ children }: TableHeadDataProps) {
@@ -12,18 +10,18 @@ function TableHeadData({ children }: TableHeadDataProps) {
   );
 }
 
-const tableHeadDatas: string[] = [
-  "sn",
-  "description",
-  "date",
-  "category",
-  "amount",
-];
-
 export default function TableHead() {
+  const tableHeadDatas: string[] = [
+    "sn",
+    "description",
+    "date",
+    "category",
+    "amount",
+  ];
+
   return (
     <thead>
-      <tr className="flex items-center border-b border-(--muted-background) transition-colors duration-300 hover:bg-(--muted-background)">
+      <tr className="flex items-center border-b border-zinc-900 transition-colors duration-300 hover:bg-zinc-900">
         {tableHeadDatas.map((tableHeadData) => (
           <TableHeadData key={tableHeadData}>{tableHeadData}</TableHeadData>
         ))}

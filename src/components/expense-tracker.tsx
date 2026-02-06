@@ -1,85 +1,93 @@
-import { Plus } from "lucide-react";
-import Button from "./button";
-import Filter from "./filter";
-import type { FilterOption } from "./filter";
-import { expenseData as initialExpenseData } from "../data";
-import type { ExpenseData } from "../data";
-import Table from "./table";
 import { useState } from "react";
-import AddData from "./add-data";
+import { Plus } from "lucide-react";
+import type { Transaction } from "../data";
+import type { FilterOption } from "./filter";
+import initialTransactions from "../data";
+import AddDataDialog from "./add-data-dialog";
+import Filter from "./filter";
+import Button from "./button";
+import Table from "./table";
 
 export default function ExpenseTracker() {
-  const [expenseData, setExpenseData] = useState(initialExpenseData);
-  const [filteredExpenseData, setFilteredExpenseData] = useState(expenseData);
+  // States
+  const [transactions, setTransactions] =
+    useState<Transaction[]>(initialTransactions);
   const [showAddDataDialog, setShowAddDataDialog] = useState(false);
+  const [filterOption, setFilterOption] = useState<FilterOption>("all");
 
-  const totalAmount = filteredExpenseData.reduce(
-    (acc, curr) => acc + curr.amount,
+  // Derived values
+  const filteredTransactions: Transaction[] = transactions.filter(
+    (transaction) => {
+      if (filterOption === "all") {
+        return true;
+      } else {
+        return transaction.category === filterOption;
+      }
+    },
+  );
+  const totalAmount = filteredTransactions.reduce(
+    (prev, curr) => prev + curr.amount,
     0,
   );
 
-  function handleExpenseDataRemoval(id: string) {
-    const updatedExpenseData = expenseData.filter(
-      (expenseData) => expenseData.id !== id,
-    );
-    setExpenseData(updatedExpenseData);
-    setFilteredExpenseData(updatedExpenseData);
-  }
-
-  function updateFilteredExpenseData(filterOption: FilterOption) {
-    if (filterOption === "all") {
-      setFilteredExpenseData(expenseData);
-    } else {
-      setFilteredExpenseData(
-        expenseData.filter(
-          (expenseData) => expenseData.category === filterOption,
-        ),
-      );
-    }
-  }
-
-  function toggleShowAddDataDialog() {
+  // Handler functions
+  function handleToogleShowAddDataDialog() {
     setShowAddDataDialog((currentState) => !currentState);
   }
-
-  function handleDataAddition(newExpenseData: ExpenseData) {
-    const updatedExpenseData = [...expenseData, newExpenseData];
-    setExpenseData(updatedExpenseData);
-    setFilteredExpenseData(updatedExpenseData);
+  function handleFilterOptionChange(filterOption: FilterOption) {
+    setFilterOption(filterOption);
+  }
+  function handleTransactionDataAddition(newTransactionData: Transaction) {
+    setTransactions((previousTransactions) => [
+      ...previousTransactions,
+      newTransactionData,
+    ]);
+  }
+  function handleTransactionDataDeletion(id: Transaction["id"]) {
+    const newTransactions = transactions.filter(
+      (transaction) => transaction.id !== id,
+    );
+    setTransactions(newTransactions);
   }
 
   return (
     <section className="container mx-auto my-12 px-4">
-      {/* Add data dialog box */}
-      {showAddDataDialog && (
-        <AddData
-          toggleShowAddDataDialog={toggleShowAddDataDialog}
-          handleDataAddition={handleDataAddition}
+      <div className="mx-auto max-w-5xl">
+        {/* Add data dialog box */}
+        {showAddDataDialog && (
+          <AddDataDialog
+            onCloseAddDataDialog={handleToogleShowAddDataDialog}
+            onTransactionDataAddition={handleTransactionDataAddition}
+          />
+        )}
+
+        {/* Options */}
+        <div className="flex items-center justify-between">
+          <Filter
+            filterOption={filterOption}
+            onFilterOptionChange={handleFilterOptionChange}
+          />
+
+          <Button
+            icon={<Plus className="size-4" />}
+            onClick={handleToogleShowAddDataDialog}
+          >
+            Add Expense Data
+          </Button>
+        </div>
+
+        {/* Note */}
+        <em className="mt-4 inline-block text-sm text-zinc-500">
+          Note: Double click to remove selected data from list
+        </em>
+
+        {/* Table */}
+        <Table
+          filteredTransactions={filteredTransactions}
+          totalAmount={totalAmount}
+          onTransactionDataDeletion={handleTransactionDataDeletion}
         />
-      )}
-
-      {/* Options */}
-      <div className="flex items-center justify-between">
-        <Filter updateFilteredExpenseData={updateFilteredExpenseData} />
-        <Button
-          logo={<Plus className="size-4" />}
-          onClick={toggleShowAddDataDialog}
-        >
-          Add Expense Data
-        </Button>
       </div>
-
-      {/* Note */}
-      <em className="mt-4 inline-block text-sm text-(--muted-foreground)">
-        Note: Double click to remove selected data from list
-      </em>
-
-      {/* Table */}
-      <Table
-        filteredExpenseData={filteredExpenseData}
-        totalAmount={totalAmount}
-        handleExpenseDataRemoval={handleExpenseDataRemoval}
-      />
     </section>
   );
 }
