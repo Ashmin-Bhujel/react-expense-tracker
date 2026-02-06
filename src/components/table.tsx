@@ -1,18 +1,18 @@
-import type { ExpenseData } from "../data";
+import type { Transaction } from "../data";
+import TableHead from "./table-head";
 import TableBody from "./table-body";
 import TableFoot from "./table-foot";
-import TableHead from "./table-head";
 
 type TableProps = {
-  filteredExpenseData: ExpenseData[];
+  filteredTransactions: Transaction[];
   totalAmount: number;
-  handleExpenseDataRemoval: (id: string) => void;
+  onTransactionDataDeletion: (id: Transaction["id"]) => void;
 };
 
 export default function Table({
-  filteredExpenseData,
+  filteredTransactions,
   totalAmount,
-  handleExpenseDataRemoval,
+  onTransactionDataDeletion,
 }: TableProps) {
   return (
     <table className="mt-6 flex flex-col">
@@ -21,8 +21,8 @@ export default function Table({
 
       {/* Table body */}
       <TableBody
-        filteredExpenseData={filteredExpenseData}
-        handleExpenseDataRemoval={handleExpenseDataRemoval}
+        filteredTransactions={filteredTransactions}
+        onTransactionDataDeletion={onTransactionDataDeletion}
       />
 
       {/* Table foot */}

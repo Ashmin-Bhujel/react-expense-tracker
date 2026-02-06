@@ -1,31 +1,27 @@
-import { useState } from "react";
+import type { Category } from "../data";
 import FilterTab from "./filter-tab";
 
-export type FilterOption = "all" | "expense" | "income";
+export type FilterOption = "all" | Category;
 
-type FilerProps = {
-  updateFilteredExpenseData: (filterOption: FilterOption) => void;
+type FilterProps = {
+  filterOption: FilterOption;
+  onFilterOptionChange: (filterOption: FilterOption) => void;
 };
 
-const filterOptions: FilterOption[] = ["all", "expense", "income"];
-
-export default function Filter({ updateFilteredExpenseData }: FilerProps) {
-  const [currentFilterOption, setCurrentFilterOption] =
-    useState<FilterOption>("all");
-
-  function handleFilterOptionChange(filterOption: FilterOption) {
-    setCurrentFilterOption(filterOption);
-    updateFilteredExpenseData(filterOption);
-  }
+export default function Filter({
+  filterOption,
+  onFilterOptionChange,
+}: FilterProps) {
+  const filters: FilterOption[] = ["all", "expense", "income"];
 
   return (
-    <div className="inline-flex items-center gap-2 border-2 border-(--muted-background) p-1">
-      {filterOptions.map((filterOption) => (
+    <div className="inline-flex items-center gap-2 border-2 border-zinc-900 p-1">
+      {filters.map((filter) => (
         <FilterTab
-          key={filterOption}
-          value={filterOption}
-          currentFilterOption={currentFilterOption}
-          handleFilterOptionChange={handleFilterOptionChange}
+          key={filter}
+          value={filter}
+          filterOption={filterOption}
+          onFilterOptionChange={onFilterOptionChange}
         />
       ))}
     </div>
