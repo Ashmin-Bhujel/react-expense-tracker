@@ -100,7 +100,7 @@ export default function ExpenseTracker() {
             icon={<Plus className="size-4" />}
             onClick={handleToogleShowAddDataDialog}
           >
-            Add Expense Data
+            Add Transaction Data
           </Button>
         </div>
 

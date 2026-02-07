@@ -79,7 +79,7 @@ export default function AddDataDialog({
         <div className="w-xl max-w-xl bg-zinc-950 p-4">
           {/* Header */}
           <div className="flex items-center justify-between">
-            <h2 className="text-xl font-semibold">Add Expense Data</h2>
+            <h2 className="text-xl font-semibold">Add Transaction Data</h2>
             <Button
               icon={<X />}
               onClick={onCloseAddDataDialog}
@@ -91,7 +91,7 @@ export default function AddDataDialog({
           <form className="mt-4" onSubmit={handleSubmit}>
             {/* Note */}
             <em className="inline-block text-sm text-zinc-500">
-              Note: Fill up the form to add new expense data.
+              Note: Fill up the form to add new data.
             </em>
 
             <fieldset>
@@ -107,7 +107,7 @@ export default function AddDataDialog({
                   <input
                     type="text"
                     id="description"
-                    placeholder="Expense description"
+                    placeholder="Transaction description"
                     value={description}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                       setDescription(event.target.value);
@@ -140,7 +140,7 @@ export default function AddDataDialog({
                   <input
                     type="text"
                     id="amount"
-                    placeholder="Expense amount in Nepali Rupees"
+                    placeholder="Transaction amount in Nepali Rupees"
                     className="w-full bg-zinc-900 p-2"
                     value={amount!}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
