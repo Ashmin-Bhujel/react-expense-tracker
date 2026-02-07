@@ -29,6 +29,7 @@ export default function ExpenseTracker() {
     (prev, curr) => prev + curr.amount,
     0,
   );
+  const filteredTransactionsCount = filteredTransactions.length;
 
   // Handler functions
   function handleToogleShowAddDataDialog() {
@@ -65,6 +66,7 @@ export default function ExpenseTracker() {
         <div className="flex items-center justify-between">
           <Filter
             filterOption={filterOption}
+            filteredTransactionsCount={filteredTransactionsCount}
             onFilterOptionChange={handleFilterOptionChange}
           />
 
