@@ -91,7 +91,7 @@ export default function AddDataDialog({
           <form className="mt-4" onSubmit={handleSubmit}>
             {/* Note */}
             <em className="inline-block text-sm text-zinc-500">
-              Notevent: Fill up the form to add new expense data.
+              Note: Fill up the form to add new expense data.
             </em>
 
             <fieldset>
