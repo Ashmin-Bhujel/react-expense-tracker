@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { X } from "lucide-react";
-import type { Transaction } from "../data";
+import type { Transaction } from "../types";
 import Button from "./button";
 
 type AddDataDialogProps = {

@@ -1,4 +1,4 @@
-import type { Transaction } from "../data";
+import type { Transaction } from "../types";
 import { cn } from "../utils";
 
 type TableBodyRowProps = {

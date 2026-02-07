@@ -1,7 +1,5 @@
-import type { Category } from "../data";
+import type { FilterOption } from "../types";
 import FilterTab from "./filter-tab";
-
-export type FilterOption = "all" | Category;
 
 type FilterProps = {
   filterOption: FilterOption;

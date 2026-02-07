@@ -1,4 +1,4 @@
-import type { FilterOption } from "./filter";
+import type { FilterOption } from "../types";
 import { cn } from "../utils";
 
 type FilterTabProps = {
