@@ -1,15 +1,15 @@
-import type { Category } from "../data";
+import type { FilterOption } from "../types";
 import FilterTab from "./filter-tab";
-
-export type FilterOption = "all" | Category;
 
 type FilterProps = {
   filterOption: FilterOption;
+  filteredTransactionsCount: number;
   onFilterOptionChange: (filterOption: FilterOption) => void;
 };
 
 export default function Filter({
   filterOption,
+  filteredTransactionsCount,
   onFilterOptionChange,
 }: FilterProps) {
   const filters: FilterOption[] = ["all", "expense", "income"];
@@ -21,6 +21,7 @@ export default function Filter({
           key={filter}
           value={filter}
           filterOption={filterOption}
+          filteredTransactionCount={filteredTransactionsCount}
           onFilterOptionChange={onFilterOptionChange}
         />
       ))}

@@ -1,4 +1,4 @@
-import type { Transaction } from "../data";
+import type { Transaction } from "../types";
 import TableHead from "./table-head";
 import TableBody from "./table-body";
 import TableFoot from "./table-foot";

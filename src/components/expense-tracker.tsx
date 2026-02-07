@@ -1,8 +1,6 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Plus } from "lucide-react";
-import type { Transaction } from "../data";
-import type { FilterOption } from "./filter";
-import initialTransactions from "../data";
+import type { FilterOption, Transaction } from "../types";
 import AddDataDialog from "./add-data-dialog";
 import Filter from "./filter";
 import Button from "./button";
@@ -10,8 +8,9 @@ import Table from "./table";
 
 export default function ExpenseTracker() {
   // States
-  const [transactions, setTransactions] =
-    useState<Transaction[]>(initialTransactions);
+  const [transactions, setTransactions] = useState<Transaction[]>(
+    getTransactionsFromLocalStorage() ?? [],
+  );
   const [showAddDataDialog, setShowAddDataDialog] = useState(false);
   const [filterOption, setFilterOption] = useState<FilterOption>("all");
 
@@ -29,6 +28,7 @@ export default function ExpenseTracker() {
     (prev, curr) => prev + curr.amount,
     0,
   );
+  const filteredTransactionsCount = filteredTransactions.length;
 
   // Handler functions
   function handleToogleShowAddDataDialog() {
@@ -50,6 +50,33 @@ export default function ExpenseTracker() {
     setTransactions(newTransactions);
   }
 
+  // Normal functions
+  function getTransactionsFromLocalStorage() {
+    try {
+      const response = localStorage.getItem("transactions");
+
+      if (response) {
+        const transactions: Transaction[] = JSON.parse(response);
+        return transactions;
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(
+          "Failed to get transactions from local storage:",
+          error.message,
+        );
+      }
+    }
+  }
+
+  // Callbacks and effects
+  const syncTransactionsToLocalStorage = useCallback(() => {
+    localStorage.setItem("transactions", JSON.stringify(transactions));
+  }, [transactions]);
+  useEffect(() => {
+    syncTransactionsToLocalStorage();
+  }, [transactions, syncTransactionsToLocalStorage]);
+
   return (
     <section className="container mx-auto my-12 px-4">
       <div className="mx-auto max-w-5xl">
@@ -65,6 +92,7 @@ export default function ExpenseTracker() {
         <div className="flex items-center justify-between">
           <Filter
             filterOption={filterOption}
+            filteredTransactionsCount={filteredTransactionsCount}
             onFilterOptionChange={handleFilterOptionChange}
           />
 
